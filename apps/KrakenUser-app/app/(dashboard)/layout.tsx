@@ -10,7 +10,7 @@ export default function Layout({
 }): JSX.Element {
     return (
         <div className="flex">
-            <div className="w-72 border-r  min-h-screen border-r-[#8905ff]">
+            <div className="w-72 border-r  min-h-full border-r-[#A704BF]">
                 <Sidebar/>
             </div>
             {children}

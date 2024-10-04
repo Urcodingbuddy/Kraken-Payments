@@ -5,7 +5,9 @@
       {
         "name": "next"
       }
-    ]
+    ],"paths": {
+      "@ui/*": ["./packages/ui/src/*"]
+    }
   },
   "include": [
     "next-env.d.ts",

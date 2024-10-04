@@ -5,6 +5,13 @@
 body,html{
   background-color: black;
 }
+
+.globe-container {
+  height: 600px; /* Increase this value */
+  width: 100%; /* Modify if necessary */
+  background-color: transparent;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

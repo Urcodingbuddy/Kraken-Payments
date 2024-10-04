@@ -1,31 +1,54 @@
-import { SparklesCore } from "../../../@/components/ui/sparkles";
-
-export default function() {
-    return <div className="text-4xl text-[#6a51a6] w-full  font-bold bg-black">
-      <div className="flex flex-col mt-5">
-        <div className="overflow-hidden ">
-      <h1 className="md:text-7xl text-3xl  lg:text-5xl font-bold text-center text-white relative z-20">
-          Wallet
-      </h1>
-      </div>
-    <div className="h-40 relative">
-        {/* Gradients */}
-        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
-        {/* Core component */}
-        <SparklesCore
-          background="transparent"
-          minSize={0.4}
-          maxSize={1}
-          particleDensity={1200}
-          className="w-full h-full"
-          particleColor="#FFFFFF"
-        />
-        {/* Radial Gradient to prevent sharp edges */}
-        <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
-      </div>
-    </div>
-</div>
+import prisma from "@repo/db/client";
+import { AddMoney } from "../../../components/AddMoneyCard";
+import { BalanceCard } from "../../../components/BalanceCard";
+import { OnRampTransactions } from "../../../components/OnRampTransactions";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../lib/auth";
+async function getBalance() {
+  const session = await getServerSession(authOptions);
+  const balance = await prisma.balance.findFirst({
+      where: {
+          userId:session?.user?.id
+      }
+  });
+  return {
+      amount: balance?.amount || 0,
+      locked: balance?.locked || 0
+  }
 }
+
+async function getOnRampTransactions() {
+  const session = await getServerSession(authOptions);
+  const txns = await prisma.walletTxn.findMany({
+      where: {
+          userId: session?.user?.id
+      }
+  });
+  return txns.map(t => ({
+      time: t.startTime,
+      amount: t.amount,
+      status: t.status,
+      provider: t.provider
+  }))
+}
+
+export default async function() {
+  const balance = await getBalance();
+  const transactions = await getOnRampTransactions();
+  return <div className="h-[calc(100vh-4rem)] w-full bg-black flex-col   dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex">
+    {/* Radial gradient for the container to give a faded look */}
+    <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+    <h1 className="text-[#A704BF] text-4xl ml-20 mt-16 z-10 mb-8">Wallet</h1>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4 z-10">
+            <div>
+                <AddMoney />
+            </div>
+            <div>
+                <BalanceCard amount={balance.amount} locked={balance.locked} />
+                <div className="pt-4">
+                    <OnRampTransactions transactions={transactions} />
+                </div>
+            </div>
+        </div>
+  </div>
+} 

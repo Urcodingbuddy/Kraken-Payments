@@ -2,10 +2,11 @@
 import { SidebarItem } from "./SidebarItem";
 export default function () {
     return (
-        <div className="bg-black h-screen flex flex-col gap-10 justify-center">
+        
+        <div className="h-[calc(100vh-4rem)] flex flex-col bg-black gap-10 justify-center relative bg-dot-white/[0.2]">
             <SidebarItem href={"/home"}
                 icon={(selected) => selected ? <SelectedHomeIcon /> : <HomeIcon />}
-                title="Home" />
+                title="Home"/>
             <SidebarItem href={"/wallet"}
                 icon={(selected) => selected ? <SelectedTransferIcon /> : <TransferIcon />}
                 title="Wallet" />
@@ -13,7 +14,7 @@ export default function () {
                 icon={(selected) => selected ? <SelectedTransactionsIcon /> : <TransactionsIcon />} title="Transactions" />
             <SidebarItem href={"/p2pTransfer"}
                 icon={(selected) => selected ? <SelectedP2PIcon /> : <P2PIcon />}
-                title="P2P Transfer" />
+                title="P2P Transfer"/>
         </div>
     )
 }

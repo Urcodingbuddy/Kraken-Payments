@@ -19,5 +19,11 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.0",
+    "mini-svg-data-uri": "^1.4.4",
+    "tailwind-merge": "^2.5.3"
+  }
 }
