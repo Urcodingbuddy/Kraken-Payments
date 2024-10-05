@@ -14,12 +14,12 @@ export function AuthInputs({
 }){
     return(
         <div className="mb-4">
-        <label htmlFor="email" className="block text-gray-400 text-sm font-bold mb-2">
+        <label htmlFor="email" className="block text-gray-400 text-sm font-bold mb-1">
             {label}
         </label>
         <input
             type={type}
-            className="shadow appearance-none border w-full py-2 px-3 text-white bg-transparent leading-tight focus:outline-none focus:shadow-outline rounded-none"
+            className="shadow appearance-none border w-full py-1 px-2 text-white bg-transparent leading-tight focus:outline-none focus:shadow-outline rounded-none"
             placeholder={placeholder}
             onChange={(e) => onChange(e.target.value)} // Pass the event directly
         />

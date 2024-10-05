@@ -5,8 +5,10 @@ import { AuthCard } from '../../../components/AuthCard'
 import { AuthInputs } from '@repo/ui/AuthInputs'
 import Link from 'next/link'
 import { BackgroundLines } from '../../../@/components/ui/background-lines'
-import { useRouter } from 'next/router'
-// import bcrypt from "bcrypt"
+import { GoogleBtn } from '@repo/ui/GoogleBtn'
+import { Gitbtn } from '@repo/ui/GitBtn'
+import { Button } from '@repo/ui/button'
+
 
 export default function SignUp() {
     const [email, setEmail] = useState("")
@@ -14,31 +16,34 @@ export default function SignUp() {
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [error, setError] = useState("")
 
-    // const router = useRouter()
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
+    
+
+    const handleSubmit = async () => {
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match")
+            setError("Password does not match")
             return
         }
-
-        // const hashedPassword = await bcrypt.hash(password, 10)
-        const result = await signIn("credentials", { redirect: false }, {
+        const result = await signIn("credentials",{
             email,
+            name,
             phone,
             password,
+            redirect:false,
+            action:"signUp",
             callbackUrl: "/home"
         })
 
-        // if(result?.ok){
-        //     router.push("/auth/signin")
-        // }else{
-        //     alert("failed to Sign-up")
-        // }
+        if (result?.error) {
+            setError(result.error)
+        } else if (result?.url) {
+            window.location.href = result.url;
+        } else {
+            console.error("Unexpected result:", result);
+        }
     }
-
     return (
         <div className="h-[calc(100vh-4rem)] w-full bg-black   dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex flex-col">
             {/* Radial gradient for the container to give a faded look */}
@@ -46,32 +51,40 @@ export default function SignUp() {
             <BackgroundLines>
                 <div className="w-full h-full flex justify-center items-center absolute">
                     <AuthCard title={'Signup With Kraken'}>
+                    <div className='flex pb-2 gap-8 justify-center'>
+                            <GoogleBtn/><Gitbtn />
+                            </div>
+                        <p className="text-gray-500 text-center">or</p>
+                        <AuthInputs placeholder={'username'}
+                            onChange={(value) => setName(value)}
+                            label={'Name'} type={'text'} onInput={undefined} />
+
                         <AuthInputs placeholder={'Email'}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                            onChange={(value) => setEmail(value)}
                             label={'Email'} type={'text'} onInput={undefined} />
 
                         <AuthInputs placeholder={'Phone number'}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                            onChange={(value) => setPhone(value)}
                             label={'Phone'} type={'text'} onInput={undefined} />
 
                         <AuthInputs placeholder={'Password'}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                            onChange={(value) => setPassword(value)}
                             label={'Password'} type={'password'} onInput={undefined} />
 
                         <AuthInputs placeholder={'Confirm Password'}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                            onChange={(value) => setConfirmPassword(value)}
                             label={'Confirm Password'} type={'password'} onInput={undefined} />
-
-                        <div className="py-4 text-center">
-                            <p className="pb-4 text-gray-500">or</p>
+                            <Button onClick={handleSubmit}>Signin</Button>
+        
+                        <div className="pt-2">
                             <p className="text-gray-500">
                                 Already have a Account?{' '}
-                                <Link href="/auth/signup" className="text-[#8905FF] hover:text-[#eee0ff]">
+                                <Link href="/auth/signin" className="text-[#8905FF] hover:text-[#eee0ff]">
                                     Sign-In
                                 </Link>
                             </p>
                             <div className='h-6 flex justify-center'>
-                                {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
+                                {error && <p style={{ color: 'red' }}>{error}</p>}
                             </div>
                         </div>
                     </AuthCard>

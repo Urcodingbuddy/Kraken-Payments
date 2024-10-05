@@ -1,5 +1,4 @@
 "use client"
-import { div } from 'framer-motion/client'
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 import { AuthCard } from '../../../components/AuthCard'
@@ -13,24 +12,19 @@ import { Gitbtn } from '@repo/ui/GitBtn'
 
 export default function SignIn() {
     const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
-    let name = "harsh"
+    const [error, setError] = useState("")
     const handleSubmit = async () => {
         console.log("i am signin")
         const result = await signIn("credentials", {
             email,
-            phone,
-            name,
             password,
+            redirect: false,
+            action:"signIn",
             callbackUrl: "/home"
         })
-        console.log("email");
-        console.log(email);
-        console.log(result);
         if (result?.error) {
-            console.error("Error while signing in:", result.error);
-            alert("Sign-in failed. Please check your credentials.");
+            setError(result.error)
             // handle error by setting it in the UI or showing an alert
         } else if (result?.url) {
             window.location.href = result.url;
@@ -52,11 +46,6 @@ export default function SignIn() {
                             label={'Email or Phone'}
                             type={'text'} onInput={undefined} />
 
-                        <AuthInputs placeholder={'Phone number'}
-                            onChange={(value) => setPhone(value)}
-                            label={'phone'} type={'text'}
-                            onInput={undefined} />
-
                         <AuthInputs placeholder={'Password'}
                             onChange={(value) => setPassword(value)}
                             label={'Password'} type={'password'}
@@ -67,12 +56,12 @@ export default function SignIn() {
                             <GoogleBtn/><Gitbtn/>
                             <p className="text-gray-500">
                                 Need an account?{' '}
-                                <Link href="/signup" className="text-[#8905FF] hover:text-[#eee0ff]">
+                                <Link href="/auth/signup" className="text-[#8905FF] hover:text-[#eee0ff]">
                                     Sign-up
                                 </Link>
                             </p>
                             <div className='h-6 flex justify-center'>
-                                {/* {{error && <p style={{ color: 'red' }}>{error}</p>} */}
+                                {error && <p style={{ color: 'red' }}>{error}</p>}
                             </div>
                         </div>
 

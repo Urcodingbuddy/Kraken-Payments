@@ -1,6 +1,9 @@
 import { GlobeDemo } from "../../../@/components/ui/gitglobe";
+import { authOptions } from "../../lib/auth";
+import { getServerSession } from "next-auth"
 
 export default function () {
+    const session = getServerSession(authOptions);
     return (
         <div className="h-[calc(100vh-4rem)] w-full bg-black   dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex flex-col">
             {/* Radial gradient for the container to give a faded look */}
