@@ -21,6 +21,7 @@ export function AuthInputs({
             type={type}
             className="shadow appearance-none border w-full py-2 px-3 text-white bg-transparent leading-tight focus:outline-none focus:shadow-outline rounded-none"
             placeholder={placeholder}
+            onChange={(e) => onChange(e.target.value)} // Pass the event directly
         />
     </div>
     )

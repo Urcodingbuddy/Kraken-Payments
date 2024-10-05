@@ -1,24 +1,23 @@
 import { Card } from "@repo/ui/card"
 
-export const OnRampTransactions = ({
+export const WalletTxn = ({
     transactions
 }: {
     transactions: {
         time: Date,
         amount: number,
-        // TODO: Can the type of `status` be more specific?
         status: string,
         provider: string
     }[]
 }) => {
     if (!transactions.length) {
-        return <Card title="Recent Transactions">
+        return <Card title="Wallet Transactions">
             <div className="text-center pb-8 pt-8">
                 No Recent transactions
             </div>
         </Card>
     }
-    return <Card title="Recent Transactions">
+    return <Card title="Wallet Transactions">
         <div className="pt-2">
             {transactions.map(t => <div className="flex justify-between border-b py-2">
                 <div>

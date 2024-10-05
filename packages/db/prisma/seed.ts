@@ -7,14 +7,14 @@ const prisma = new PrismaClient();
 
 async function main() {
     // Hash the password
-    const hashedPassword = await bcrypt.hash('password123', 10); // Use your desired password
+    const hashedPassword = await bcrypt.hash('123', 10); // Use your desired password
 
     // Create a user
     const user = await prisma.user.create({
         data: {
-            email: 'johndoe@example.com',
-            name: 'John Doe',
-            number: '1234567890',
+            email: '123@mail.com',
+            name: '123',
+            number: '123123',
             password: hashedPassword,
             auth_type: 'credentials', // Set authentication type
             Balance: {

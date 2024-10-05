@@ -12,11 +12,12 @@ export function AppbarClient({ showButton = true }: AppbarClientProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const hideButton = pathname === "/signin" || pathname === "/signup";
+  const hideButton = pathname === "/auth/signin" || pathname === "/auth/signup";
   return (
    <div>
       <Appbar onSignin={signIn} onSignout={async () => {
         await signOut()
+        router.push("/api/auth/signin");
       }} user={session.data?.user}
       showButton={!hideButton} />
    </div>

@@ -1,7 +1,8 @@
+import { signIn } from "next-auth/react"
 export const GoogleBtn = () =>{
     return(
         <button
-        // onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+        onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
         className="text-white hover:bg-white hover:text-black py-1 border flex items-center justify-evenly w-24">
         <GoogleSvg /> Google
     </button>

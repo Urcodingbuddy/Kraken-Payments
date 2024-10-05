@@ -1,7 +1,8 @@
+import { signIn } from "next-auth/react"
 export const Gitbtn = () =>{
     return (
         <button
-        // onClick={() => signIn('github', { callbackUrl: '/dashboard' })}
+        onClick={() => signIn('github', { callbackUrl: '/dashboard' })}
         className="text-white hover:bg-white hover:text-black hover:fill-black py-1  border flex items-center justify-evenly w-24 group">
         <GitHubSvg /> GitHub
     </button>

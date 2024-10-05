@@ -30,7 +30,7 @@ export async function p2pTransfer(to: string, amount: number) {
 
         await tx.$queryRaw`SELECT * FROM  "Balance" WHERE "userId" = ${Number(from)} FOR UPDATE`
         const fromBalance = await tx.balance.findUnique({
-            where: { userId: Number(from) },
+            where: { userId: from },
           });
 
           if (!fromBalance || fromBalance.amount < amount) {
@@ -38,7 +38,7 @@ export async function p2pTransfer(to: string, amount: number) {
           }
 
           await tx.balance.update({
-            where: { userId: Number(from) },
+            where: { userId: from },
             data: { amount: { decrement: amount } },
           });
 
@@ -49,7 +49,7 @@ export async function p2pTransfer(to: string, amount: number) {
 
           await tx.p2pTransfer.create({
             data:{
-                fromUserId: Number(from),
+                fromUserId: from,
                 toUserId:toUser.id,
                 amount,
                 timestamp: new Date()

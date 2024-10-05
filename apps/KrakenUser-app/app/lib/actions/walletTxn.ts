@@ -15,11 +15,11 @@ export async function createOnRamptnx(amount: number, provider: string) {
         }
     }
     try {
-        await prisma.onRampTransaction.create({
+        await prisma.walletTxn.create({
             data: {
-                userId: Number(userId),
+                userId: userId,
                 amount: amount,
-                status: "Processing",
+                status: "Pending",
                 startTime: new Date(),
                 provider:provider || "Fampay",
                 token:token
