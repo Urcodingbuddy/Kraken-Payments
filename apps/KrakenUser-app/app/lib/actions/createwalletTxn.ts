@@ -1,11 +1,12 @@
-
 "use server"
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
 import prisma from "@repo/db/client";
 
-export async function createOnRamptnx(amount: number, provider: string) {
+export async function createWalletTxn(amount: number, provider: string) {
+    console.log("Inside walletTxn")
     const session = await getServerSession(authOptions);
+    console.log("Session:", session); 
     const token = Math.random().toString();
     const userId = session?.user?.id;
     if (!userId) {
@@ -21,7 +22,7 @@ export async function createOnRamptnx(amount: number, provider: string) {
                 amount: amount,
                 status: "Pending",
                 startTime: new Date(),
-                provider:provider || "Fampay",
+                provider:provider,
                 token:token
             } 
         })

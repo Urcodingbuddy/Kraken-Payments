@@ -4,11 +4,35 @@ import { authOptions } from "../auth";
 import prisma from "@repo/db/client";
 
 export async function p2pTransfer(to: string, amount: number) {
+    if (!amount && !to) {
+        return {
+            message: "Fill Amount and receiver's Phone Number"
+        }
+    }
+
+    if (!amount) {
+        return {
+            message: "Amount cannot be empty"
+        }
+    }
+
+    if (!to) {
+        return {
+            message: "Phone number cannot be empty"
+        }
+    }
+
+    // Check if the phone number has less than 10 digits
+    if (to.length < 10) {
+        return {
+            message: "Receiver's Phone Number must be 10 digits"
+        }
+    }
     const session = await getServerSession(authOptions);
     const from = session?.user?.id;
     if (!from) {
         return {
-            message: "Error while sending"
+            message: "Error while sending, Sign-In again !"
         }
     }
     const toUser = await prisma.user.findFirst({
@@ -34,7 +58,7 @@ export async function p2pTransfer(to: string, amount: number) {
           });
 
           if (!fromBalance || fromBalance.amount < amount) {
-            throw new Error('Insufficient funds');
+            return {message: 'Insufficient funds'}
           }
 
           await tx.balance.update({

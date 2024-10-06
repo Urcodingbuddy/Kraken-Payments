@@ -4,7 +4,7 @@ import { Card } from "@repo/ui/card";
 import { Select } from "@repo/ui/select";
 import { useState } from "react";
 import { TextInput } from "@repo/ui/textinput";
-import { createOnRamptnx } from "../app/lib/actions/walletTxn";
+import { createWalletTxn } from "../app/lib/actions/createwalletTxn";
 
 const SUPPORTED_BANKS = [{
     name: "HDFC Bank",
@@ -50,8 +50,9 @@ export const AddMoney = () => {
             <div className="flex justify-center pt-4">
                 <Button onClick={async () => {
                     console.log('Attempting to create on-ramp transaction');
-                    await createOnRamptnx(amount*100, provider)
-                    window.location.href = redirectUrl || "";
+                    console.log(`The Amount: ${amount} with Provider: ${provider}`)
+                    await createWalletTxn(amount*100, provider)
+                    // window.location.href = redirectUrl || "";
                 }}>
                     Add Money
                 </Button>

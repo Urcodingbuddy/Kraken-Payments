@@ -13,7 +13,8 @@
     "./AuthInputs":"./src/AuthInputs.tsx",
     "./GitBtn":"./src/GitBtn.tsx",
     "./GoogleBtn":"./src/GoogleBtn.tsx",
-    "./loader":"./src/loader.tsx"
+    "./loader":"./src/loader.tsx",
+    "./BigLoader":"./src/BigLoader.tsx"
     
   },
   "scripts": {
