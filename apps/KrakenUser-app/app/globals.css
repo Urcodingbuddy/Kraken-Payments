@@ -17,10 +17,33 @@ body,html{
   background-color: black;
 }
 
+.globe-skeleton-container {
+  height: 600px;
+  width: 100%;
+  background-color: transparent;
+}
+
+
 .globe-container {
-  height: 600px; /* Increase this value */
+  height: 70vh; /* Increase this value */
   width: 100%; /* Modify if necessary */
   background-color: transparent;
+}
+
+
+.kraken-loader {
+  width: 300px; /* Adjust the size of the SVG */
+  height: 300px;
+  animation: rotate-loader 2s linear infinite; /* Rotation effect */
+}
+
+@keyframes rotate-loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @layer base {
