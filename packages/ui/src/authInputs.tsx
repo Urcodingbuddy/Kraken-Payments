@@ -13,7 +13,7 @@ export function AuthInputs({
     onInput:any
 }){
     return(
-        <div className="mb-4">
+        <div className="mb-2">
         <label htmlFor="email" className="block text-gray-400 text-sm font-bold mb-1">
             {label}
         </label>

@@ -80,7 +80,7 @@ export const authOptions = {
     callbacks: {
 
         async session({ token, session }: any) {
-            session.user.id = token.user
+            session.user.id = token.id
             return session
         },
 

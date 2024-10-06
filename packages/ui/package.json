@@ -12,7 +12,8 @@
     "./textinput": "./src/TextInput.tsx",
     "./AuthInputs":"./src/AuthInputs.tsx",
     "./GitBtn":"./src/GitBtn.tsx",
-    "./GoogleBtn":"./src/GoogleBtn.tsx"
+    "./GoogleBtn":"./src/GoogleBtn.tsx",
+    "./loader":"./src/loader.tsx"
     
   },
   "scripts": {
