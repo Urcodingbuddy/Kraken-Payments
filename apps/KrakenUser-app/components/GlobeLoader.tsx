@@ -1,39 +1,3 @@
-// 'use client'; // Marking this component as client-side to use hooks
-// import { useState, useEffect } from "react";
-// import { GlobeDemo } from "../.././KrakenUser-app/@/components/ui/gitglobe";
-// import { BigLoader } from "@repo/ui/BigLoader";
-
-
-// export function GlobeLoader() {
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     // Simulate loading for the GlobeDemo component.
-//     const timer = setTimeout(() => {
-//       setLoading(false);
-//     }, 1500); // Adjust the time as per the actual loading time of GlobeDemo
-
-//     return () => clearTimeout(timer); // Clean up the timeout when component unmounts
-//   }, []);
-
-//   return (
-//     <div className="globe-container">
-//       {loading ? (
-//         <div className="globe-skeleton-container flex justify-center items-center h-[600px] w-full">
-//           {/* Improved, more visually appealing loader */}
-//           <div className="flex gap-10 px-10 text-center flex-col items-center justify-center text-2xl md:text-5xl sm:text-4xl font-bold relative z-20 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
-//           <BigLoader/><span>Prepare for something spectacular.</span> 
-//           </div>
-//         </div>
-//       ) : (
-//         <div>
-//           <GlobeDemo />
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
 
 'use client'; // Marking this component as client-side to use hooks
 import { useState, useEffect } from "react";
