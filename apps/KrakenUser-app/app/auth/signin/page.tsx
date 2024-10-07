@@ -20,6 +20,7 @@ export default function SignIn() {
         setLoading(true)
         const result = await signIn("credentials", {
             email,
+            phone:email,
             password,
             redirect: false,
             action: "signIn",
@@ -67,7 +68,7 @@ export default function SignIn() {
                             label={'Password'} type={'password'}
                             onInput={undefined} />
                         <div className='w-[14.5rem] mt-2 h-10'>
-                        <Button type={"submit"} onClick={handleSubmit}>
+                        <Button type={"button"} onClick={handleSubmit} fullWidth={true}>
                             <span className='inline-flex gap-5 '>Sign-In {loading && <Loader/>}</span>
                         </Button>
                         </div>

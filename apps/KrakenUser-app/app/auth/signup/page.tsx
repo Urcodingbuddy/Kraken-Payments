@@ -9,6 +9,8 @@ import { GoogleBtn } from '@repo/ui/GoogleBtn'
 import { Gitbtn } from '@repo/ui/GitBtn'
 import { Button } from '@repo/ui/button'
 import { Loader } from '@repo/ui/loader'
+import { useRouter } from 'next/router';
+import { button } from 'framer-motion/client'
 
 
 export default function SignUp() {
@@ -19,13 +21,13 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
+    
 
     const handleSubmit = async () => {
+        setError("");
         setLoading(true)
-        if (password !== confirmPassword) {
-            setError("Password does not match")
-            return
-        }
+
+
         const result = await signIn("credentials", {
             email,
             name,
@@ -41,19 +43,31 @@ export default function SignUp() {
             setLoading(false)
         } else if (result?.url) {
             setLoading(true)
-            window.location.href = result.url;
+            const router = useRouter();
+            router.push(result.url);
         } else {
             console.error("Unexpected result:", result);
         }
+
+
+        if (password !== confirmPassword) {
+            setError("Password does not match")
+            setLoading(false);
+            return
+        }
+
+
     }
 
-    const handletempGooglebtns = () => {
-        setError("Google Sign-In is Currently Unavailable !");
-    }
+    (e: React.KeyboardEvent) => {
+        if (e.key === "Enter") {
+          handleSubmit();
+        }
+      };
+    const handleUnavailableSignIn = (provider: any) => {
+        setError(`${provider} Sign-In is Currently Unavailable!`);
+    };
 
-    const handletempGithubbtns = () => {
-        setError("Github Sign-In is Currently Unavailable !");
-    }
 
     return (
         <div className="h-[calc(100vh-4rem)] w-full bg-black   dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex flex-col">
@@ -61,11 +75,11 @@ export default function SignUp() {
             <div className="absolute pointer-events-none inset-0 items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
             <BackgroundLines>
                 <div className="w-full h-full flex justify-center items-center absolute">
-                    <AuthCard title={'Signup With Kraken'}>
+                    <AuthCard title={'Sign-Up with KRAKEN'}>
                         <div className='flex pb-2 gap-8 justify-center'>
                             {/* <GoogleBtn /><Gitbtn /> */}
-                            <TempGoogleBtn onClick={handletempGooglebtns} />
-                            <TempGitbtn onClick={handletempGithubbtns} />
+                            <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
+                            <TempGitbtn onClick={() => handleUnavailableSignIn("GitHub")} />
                         </div>
                         <p className="text-gray-500 text-center">or</p>
                         <AuthInputs placeholder={'username'}
@@ -78,7 +92,10 @@ export default function SignUp() {
 
                         <AuthInputs placeholder={'Phone number'}
                             onChange={(value) => setPhone(value)}
-                            label={'Phone'} type={'text'} onInput={undefined} />
+                            label={'Phone'} type={'text'} onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                                const inputValue = e.currentTarget.value.replace(/[^0-9]/g, ''); // Only allows numbers
+                                e.currentTarget.value = inputValue; // Replace non-numeric characters
+                            }} />
 
                         <AuthInputs placeholder={'Password'}
                             onChange={(value) => setPassword(value)}
@@ -88,12 +105,12 @@ export default function SignUp() {
                             onChange={(value) => setConfirmPassword(value)}
                             label={'Confirm Password'} type={'password'} onInput={undefined} />
                         <div className='w-[14.5rem] mt-2 h-10'>
-                            <Button type={"submit"} onClick={handleSubmit}>
+                            <Button type={"button"} onClick={handleSubmit}  fullWidth={true}>
                                 <span className='inline-flex gap-5 '>Sign-In {loading && <Loader />}</span>
                             </Button>
                         </div>
                         <div className="pt-2">
-                            <p className="text-gray-500">
+                            <p className="text-gray-500 text-center">
                                 Already have a Account? {' '}
                                 <Link href="/auth/signin" className="text-[#8905FF] hover:text-[#eee0ff]">
                                     Sign-In

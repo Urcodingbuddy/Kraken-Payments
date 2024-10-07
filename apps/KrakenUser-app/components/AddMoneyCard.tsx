@@ -36,7 +36,7 @@ export const AddMoney = () => {
             onInput={(e: React.FormEvent<HTMLInputElement>) => {
                 const inputValue = e.currentTarget.value.replace(/[^0-9]/g, ''); // Only allows numbers
                 e.currentTarget.value = inputValue; // Replace non-numeric characters
-            } } type={""}        />
+            } } type={"number"}        />
             <div className="py-4 text-left">
                 Bank
             </div>

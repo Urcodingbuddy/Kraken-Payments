@@ -21,12 +21,17 @@ export const SendMoneyCard = () => {
                 }} />
             <TextInput label={"Amount"} placeholder={"Amount"} type="number" onChange={(value) => {
                 setAmount(value);
-            }} onInput={undefined} />
+            }} onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                const inputValue = e.currentTarget.value.replace(/[^0-9]/g, ''); // Only allows numbers
+                e.currentTarget.value = inputValue; // Replace non-numeric characters
+            }} />
             <div className="flex justify-center pt-4">
                 <Button onClick={async () => {
                     setLoading(true)
                     const res = await p2pTransfer(number, Number(amount) * 100)
                     if (res?.message) {
+
+                    setLoading(false)
                         setError(res.message)
                     }
                 }}>

@@ -26,12 +26,18 @@ export const authOptions = {
             async authorize(credentials, req) {
                 const action = req.body?.action;  // Custom action type to distinguish sign-in/sign-up
                 // If action is sign-in, only require email/phone and password
+                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                 if (action === 'signIn') {
                     if (!credentials?.email && !credentials?.phone || !credentials?.password) {
                         throw new Error("Email/Phone and password are required for sign-in");
                     }
+
+                    if (credentials.email && !emailPattern.test(credentials.email)) {
+                        throw new Error("Invalid email");
+                      }
+
                     // Lookup user in the database by email/phone
-                    const existingUser = await db.user.findFirst({
+                    const existingUser:any = await db.user.findFirst({
                         where: {
                             OR: [{ email: credentials?.email }, { number: credentials?.phone }],
                         },
@@ -54,6 +60,9 @@ export const authOptions = {
                     if (!credentials?.name || !credentials?.email || !credentials?.phone || !credentials?.password) {
                         throw new Error("All fields are required for sign-up");
                     }
+                    if (!emailPattern.test(credentials.email)) {
+                        throw new Error("Invalid email");
+                      }
 
                     const hashedPassword = await bcrypt.hash(credentials?.password, 10);
                     const newUser = await db.user.create({
