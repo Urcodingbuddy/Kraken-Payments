@@ -26,15 +26,25 @@ export const authOptions = {
             async authorize(credentials, req) {
                 const action = req.body?.action;  // Custom action type to distinguish sign-in/sign-up
                 // If action is sign-in, only require email/phone and password
-                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  // Email validation regex
+                const phonePattern = /^\d{10,}$/;
+
+                const isPhoneNumber = (input: string) => phonePattern.test(input);
                 if (action === 'signIn') {
-                    if (!credentials?.email && !credentials?.phone || !credentials?.password) {
+                    if (!credentials?.email || !credentials?.password) {
                         throw new Error("Email/Phone and password are required for sign-in");
                     }
 
-                    if (credentials.email && !emailPattern.test(credentials.email)) {
-                        throw new Error("Invalid email");
-                      }
+
+                    if(/[a-zA-Z]/.test(credentials.email)){
+                        if(!emailPattern.test(credentials.email)){
+                            throw new Error("Invalid Email")
+                        }
+                    }else{
+                        if(!phonePattern.test(credentials.email)){
+                            throw new Error("Phone number must consist 10 Digits")
+                        }
+                    }
 
                     // Lookup user in the database by email/phone
                     const existingUser:any = await db.user.findFirst({
@@ -64,6 +74,29 @@ export const authOptions = {
                         throw new Error("Invalid email");
                       }
 
+                    if(!phonePattern.test(credentials.phone)){
+                        throw new Error("Phone number must consist 10 Digits")
+                    }
+
+                    const existingUser: any = await db.user.findFirst({
+                        where: {
+                            OR: [
+                                { email: credentials?.email },
+                                { number: credentials?.phone },
+                            ],
+                        },
+                    });
+                    
+                    if (existingUser) {
+                        // Check if the found user has the same email or phone number
+                        if (existingUser.email === credentials?.email) {
+                            throw new Error("Email already exists");
+                        }
+                        if (existingUser.number === credentials?.phone) {
+                            throw new Error("Phone number already exists");
+                        }
+                    }
+                    
                     const hashedPassword = await bcrypt.hash(credentials?.password, 10);
                     const newUser = await db.user.create({
                         data: {
@@ -79,7 +112,6 @@ export const authOptions = {
                 throw new Error("Invalid action");
             },
         })
-
     ],
     pages: {
         signIn: "/auth/signin",

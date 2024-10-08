@@ -20,7 +20,6 @@ export default function SignIn() {
         setLoading(true)
         const result = await signIn("credentials", {
             email,
-            phone:email,
             password,
             redirect: false,
             action: "signIn",

@@ -27,6 +27,11 @@ export default function SignUp() {
         setError("");
         setLoading(true)
 
+        if (password !== confirmPassword) {
+            setError("Password does not match")
+            setLoading(false);
+            return
+        }
 
         const result = await signIn("credentials", {
             email,
@@ -38,6 +43,7 @@ export default function SignUp() {
             callbackUrl: "/home"
         })
 
+
         if (result?.error) {
             setError(result.error)
             setLoading(false)
@@ -47,13 +53,6 @@ export default function SignUp() {
             router.push(result.url);
         } else {
             console.error("Unexpected result:", result);
-        }
-
-
-        if (password !== confirmPassword) {
-            setError("Password does not match")
-            setLoading(false);
-            return
         }
 
 
