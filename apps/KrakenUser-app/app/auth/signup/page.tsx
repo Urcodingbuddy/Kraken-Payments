@@ -9,8 +9,6 @@ import { GoogleBtn } from '@repo/ui/GoogleBtn'
 import { Gitbtn } from '@repo/ui/GitBtn'
 import { Button } from '@repo/ui/button'
 import { Loader } from '@repo/ui/loader'
-import { useRouter } from 'next/router';
-import { button } from 'framer-motion/client'
 
 
 export default function SignUp() {
@@ -21,23 +19,28 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
-    
+
+
+    const handleNumberChange = (value: string) => {
+        // Regex: disallows symbols, letters, prevents leading zeros (except "0" alone)
+        const regex = /^[1-9][0-9]*$|^0$/;
+
+        if (value === "" || regex.test(value) && value.length <= 10) {
+            // Only set if valid input
+            setPhone(value);
+        }
+    };
 
     const handleSubmit = async () => {
         setError("");
         setLoading(true)
-
-        if (password !== confirmPassword) {
-            setError("Password does not match")
-            setLoading(false);
-            return
-        }
 
         const result = await signIn("credentials", {
             email,
             name,
             phone,
             password,
+            confirmPassword,
             redirect: false,
             action: "signUp",
             callbackUrl: "/home"
@@ -49,20 +52,18 @@ export default function SignUp() {
             setLoading(false)
         } else if (result?.url) {
             setLoading(true)
-            const router = useRouter();
-            router.push(result.url);
+            window.location.href = result.url;
         } else {
             console.error("Unexpected result:", result);
         }
-
-
     }
 
-    (e: React.KeyboardEvent) => {
+    const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
-          handleSubmit();
+            handleSubmit();
         }
-      };
+    };
+
     const handleUnavailableSignIn = (provider: any) => {
         setError(`${provider} Sign-In is Currently Unavailable!`);
     };
@@ -83,28 +84,39 @@ export default function SignUp() {
                         <p className="text-gray-500 text-center">or</p>
                         <AuthInputs placeholder={'username'}
                             onChange={(value) => setName(value)}
-                            label={'Name'} type={'text'} onInput={undefined} />
+                            label={'Name'} type={'text'}  />
 
                         <AuthInputs placeholder={'Email'}
                             onChange={(value) => setEmail(value)}
-                            label={'Email'} type={'text'} onInput={undefined} />
+                            label={'Email'} type={'text'}  />
 
                         <AuthInputs placeholder={'Phone number'}
-                            onChange={(value) => setPhone(value)}
-                            label={'Phone'} type={'text'} onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                            label={'Phone'}
+                            type={'number'}
+                            onChange={(value) => {
+                                // Handle validation
+                                if (value.length > 10) {
+                                    // Optionally handle overflow case, e.g. show an error
+                                    return;
+                                }
+                                handleNumberChange(value); // handle validation
+                            }}
+                            onInput={(e: React.FormEvent<HTMLInputElement>) => {
                                 const inputValue = e.currentTarget.value.replace(/[^0-9]/g, ''); // Only allows numbers
                                 e.currentTarget.value = inputValue; // Replace non-numeric characters
-                            }} />
+                            }}
+                        />
+
 
                         <AuthInputs placeholder={'Password'}
                             onChange={(value) => setPassword(value)}
-                            label={'Password'} type={'password'} onInput={undefined} />
+                            label={'Password'} type={'password'} />
 
                         <AuthInputs placeholder={'Confirm Password'}
                             onChange={(value) => setConfirmPassword(value)}
-                            label={'Confirm Password'} type={'password'} onInput={undefined} />
+                            label={'Confirm Password'} type={'password'} />
                         <div className='w-[14.5rem] mt-2 h-10'>
-                            <Button type={"button"} onClick={handleSubmit}  fullWidth={true}>
+                            <Button type={"button"} onClick={handleSubmit} fullWidth={true}>
                                 <span className='inline-flex gap-5 '>Sign-In {loading && <Loader />}</span>
                             </Button>
                         </div>

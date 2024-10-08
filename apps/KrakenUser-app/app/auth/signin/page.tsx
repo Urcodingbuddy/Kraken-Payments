@@ -60,12 +60,14 @@ export default function SignIn() {
                         <AuthInputs placeholder={'Email or Phone number'}
                             onChange={(value: string) => setEmail(value)}
                             label={'Email or Phone'}
-                            type={'text'} onInput={undefined} />
+                            type={'text'}
+                            />
 
                         <AuthInputs placeholder={'Password'}
                             onChange={(value) => setPassword(value)}
-                            label={'Password'} type={'password'}
-                            onInput={undefined} />
+                            label={'Password'} 
+                            type={'password'}
+                            />
                         <div className='w-[14.5rem] mt-2 h-10'>
                         <Button type={"button"} onClick={handleSubmit} fullWidth={true}>
                             <span className='inline-flex gap-5 '>Sign-In {loading && <Loader/>}</span>

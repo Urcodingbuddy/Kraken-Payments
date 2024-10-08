@@ -21,15 +21,15 @@ export const authOptions = {
                 name: { label: "Name", type: "text", placeholder: "name" }, // Only required for sign-up
                 email: { label: "Email", type: "text", placeholder: "your-email@example.com" },
                 phone: { label: "Phone", type: "text", placeholder: "your phone number" },
-                password: { label: "Password", type: "password" },
+                password: { label: "Password", type: "password",placeholder:"password"},
+                confirmPassword:{label: "confirmPassword", type:"password", placeholder:"password"}
             },
             async authorize(credentials, req) {
                 const action = req.body?.action;  // Custom action type to distinguish sign-in/sign-up
                 // If action is sign-in, only require email/phone and password
                 const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  // Email validation regex
-                const phonePattern = /^\d{10,}$/;
+                const phonePattern = /^\d{10}$/;
 
-                const isPhoneNumber = (input: string) => phonePattern.test(input);
                 if (action === 'signIn') {
                     if (!credentials?.email || !credentials?.password) {
                         throw new Error("Email/Phone and password are required for sign-in");
@@ -67,7 +67,7 @@ export const authOptions = {
 
                 // If action is sign-up, require name, email, phone, and password
                 if (action === 'signUp') {
-                    if (!credentials?.name || !credentials?.email || !credentials?.phone || !credentials?.password) {
+                    if (!credentials?.name || !credentials?.email || !credentials?.phone || !credentials?.password || !credentials.confirmPassword) {
                         throw new Error("All fields are required for sign-up");
                     }
                     if (!emailPattern.test(credentials.email)) {
@@ -78,6 +78,9 @@ export const authOptions = {
                         throw new Error("Phone number must consist 10 Digits")
                     }
 
+                    if(credentials.password !== credentials.confirmPassword){
+                        throw new Error("Password do not match")
+                    }
                     const existingUser: any = await db.user.findFirst({
                         where: {
                             OR: [
