@@ -1,23 +1,50 @@
 "use client"
+import { useState } from "react";
 import { SidebarItem } from "./SidebarItem";
+
 export default function () {
+    const [isCollapsed, setIsCollapsed] = useState(true)
+    const toggleMenu = () => {
+        setIsCollapsed(!isCollapsed); // Toggle the collapse state
+      };
+
     return (
         
-        <div className="h-[calc(100vh-4rem)] flex flex-col bg-black gap-10 justify-center relative bg-dot-white/[0.2]">
+        <div className={`h-[calc(100vh-4rem)] bg-dot-white/[0.15] transition-width duration-300 ease-in-out  ${
+            isCollapsed ? "w-[68px]" : "w-56"
+          }`}
+          >
+            <button className="p-5 cursor-pointer" onClick={toggleMenu}>
+                <Menu/>
+            </button>
+            <div className="gap-16 flex flex-col h-100 justify-center mt-20">
             <SidebarItem href={"/home"}
                 icon={(selected) => selected ? <SelectedHomeIcon /> : <HomeIcon />}
-                title="Home"/>
+                title="Home"
+                isCollapsed={isCollapsed}
+                />
             <SidebarItem href={"/wallet"}
                 icon={(selected) => selected ? <SelectedTransferIcon /> : <TransferIcon />}
-                title="Wallet" />
+                title="Wallet"
+                isCollapsed={isCollapsed} />
             <SidebarItem href={"/transactions"}
-                icon={(selected) => selected ? <SelectedTransactionsIcon /> : <TransactionsIcon />} title="Transactions" />
+                icon={(selected) => selected ? <SelectedTransactionsIcon /> : <TransactionsIcon />} title="Transactions"
+                isCollapsed={isCollapsed} />
             <SidebarItem href={"/p2pTransfer"}
                 icon={(selected) => selected ? <SelectedP2PIcon /> : <P2PIcon />}
-                title="P2P Transfer"/>
+                title="P2P Transfer"
+                isCollapsed={isCollapsed}/>
+                </div>
         </div>
     )
 }
+
+function Menu(){
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8"  viewBox="0 -960 960 960"  fill="#A704BF"><path d="M145.48-219.09q-16.71 0-28.16-11.5t-11.45-28.85q0-16.78 11.45-28.1 11.45-11.33 28.16-11.33h669.04q16.71 0 28.44 11.5 11.74 11.5 11.74 28.29 0 17.34-11.74 28.67-11.73 11.32-28.44 11.32H145.48Zm0-221.3q-16.71 0-28.16-11.5t-11.45-28.29q0-16.78 11.45-28.1 11.45-11.33 28.16-11.33h669.04q16.71 0 28.44 11.5 11.74 11.5 11.74 28.29 0 16.78-11.74 28.1-11.73 11.33-28.44 11.33H145.48Zm0-220.74q-16.71 0-28.16-11.5t-11.45-28.85q0-16.78 11.45-28.11 11.45-11.32 28.16-11.32h669.04q16.71 0 28.44 11.5 11.74 11.5 11.74 28.28 0 17.35-11.74 28.67-11.73 11.33-28.44 11.33H145.48Z"/></svg>
+    )
+}
+
 function HomeIcon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

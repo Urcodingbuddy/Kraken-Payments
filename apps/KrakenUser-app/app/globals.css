@@ -123,3 +123,12 @@ input[type='number']::-webkit-inner-spin-button {
 input[type='number'] {
     -moz-appearance: textfield;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar in Firefox */
+* {
+  scrollbar-width: none; /* Firefox */
+}

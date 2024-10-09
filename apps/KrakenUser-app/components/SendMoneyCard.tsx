@@ -11,7 +11,7 @@ export const SendMoneyCard = () => {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     return <Card title="Send Money">
-        <div className="w-96">
+        <div className="w-full">
             <TextInput label={"Number"} placeholder={"Phone number"} type="number" onChange={(value) => {
                 setNumber(value)
             }}
