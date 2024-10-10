@@ -7,18 +7,18 @@ interface AppbarClientProps {
   showButton?: boolean;
 }
 
-export function AppbarClient({ showButton = true }: AppbarClientProps) {
+export function AppbarClient({ showButton = false }: AppbarClientProps) {
   const session = useSession();
   const pathname = usePathname();
 
-  const hideButton = pathname === "/auth/signin" || pathname === "/auth/signup";
+  const ShowButton = pathname === "/";
   return (
    <div>
       <Appbar onSignin={signIn} onSignout={async () => {
         await signOut()
         window.location.href = "/api/auth/signin";
       }} user={session.data?.user}
-      showButton={!hideButton} />
+      showButton={ShowButton} />
    </div>
   );
 }
