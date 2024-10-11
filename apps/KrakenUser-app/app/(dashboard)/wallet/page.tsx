@@ -24,7 +24,7 @@ async function getOnRampTransactions() {
           userId: session?.user?.id
       }
   });
-  return txns.map(t => ({
+  return txns.map((t: { startTime: any; amount: any; status: any; provider: any; }) => ({
       time: t.startTime,
       amount: t.amount,
       status: t.status,
@@ -38,7 +38,7 @@ export default async function() {
   return <div className="h-[calc(100vh-4rem)] overflow-y-scroll w-full bg-black flex-col  dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex">
     {/* Radial gradient for the container to give a faded look */}
     <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-    <h1 className="text-[#A704BF] font-extrabold text-4xl mt-5 ml-5  md:ml-20 md:mt-16 z-10 mb-8">Wallet</h1>
+    <h1 className="text-[#A704BF] font-extrabold text-4xl mt-5  ml-20   md:ml-20 md:mt-16 z-10 mb-8">Wallet</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-4 p-4 z-10 overflow-y-scroll">
             <div>
                 <AddMoney />

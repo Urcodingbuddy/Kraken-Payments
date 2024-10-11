@@ -116,24 +116,29 @@ export function Globe({ globeConfig, data }: WorldProps) {
   const _buildData = () => {
     const arcs = data;
     let points = [];
+    
     for (let i = 0; i < arcs.length; i++) {
       const arc = arcs[i];
-      const rgb = hexToRgb(arc.color) as { r: number; g: number; b: number };
-      points.push({
-        size: defaultProps.pointSize,
-
-        order: arc.order,
-        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
-        lat: arc.startLat,
-        lng: arc.startLng,
-      });
-      points.push({
-        size: defaultProps.pointSize,
-        order: arc.order,
-        color: (t: number) => `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${1 - t})`,
-        lat: arc.endLat,
-        lng: arc.endLng,
-      });
+  
+      // Optional chaining to safely access arc properties
+      const rgb = hexToRgb(arc?.color ?? "#000000") as { r: number; g: number; b: number };
+  
+      if (arc) {
+        points.push({
+          size: defaultProps.pointSize,
+          order: arc.order,
+          color: (t: number) => `rgba(${rgb?.r}, ${rgb?.g}, ${rgb?.b}, ${1 - t})`,
+          lat: arc.startLat,
+          lng: arc.startLng,
+        });
+        points.push({
+          size: defaultProps.pointSize,
+          order: arc.order,
+          color: (t: number) => `rgba(${rgb?.r}, ${rgb?.g}, ${rgb?.b}, ${1 - t})`,
+          lat: arc.endLat,
+          lng: arc.endLng,
+        });
+      }
     }
 
     // remove duplicates for same lat and lng
@@ -178,9 +183,13 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .arcAltitude((e) => {
         return (e as { arcAlt: number }).arcAlt * 1;
       })
-      .arcStroke((e) => {
-        return [0.32, 0.28, 0.3][Math.round(Math.random() * 2)];
+      .arcStroke((obj: object) => { 
+        const values = [0.32, 0.28, 0.3];
+        const randomIndex = Math.floor(Math.random() * values.length);
+        return values[randomIndex] ?? 0.32;  // Fallback to a default value
       })
+      
+      
       .arcDashLength(defaultProps.arcLength)
       .arcDashInitialGap((e) => (e as { order: number }).order * 1)
       .arcDashGap(15)
@@ -285,14 +294,16 @@ export function hexToRgb(hex: string) {
     return r + r + g + g + b + b;
   });
 
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
+  var  result: RegExpExecArray | null = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (result !== null) {
+    return {
+      r: parseInt(result[1] || "", 16),
+      g: parseInt(result[2] || "", 16),
+      b: parseInt(result[3] || "", 16),
+    };
+  }
+
+  return null;
 }
 
 export function genRandomNumbers(min: number, max: number, count: number) {

@@ -7,10 +7,10 @@ export const SidebarItem = ({ href, title, icon, isCollapsed }: { href: string; 
     const pathname = usePathname()
     const selected = pathname === href
 
-    return <div className={`flex ${selected ? "text-[#A704BF]" : "text-slate-500"} cursor-pointer flex items-center h-12  p-2 pl-5`} onClick={() => {
+    return <div className={`flex ${selected ? "text-[#A704BF]" : "text-slate-500"} cursor-pointer flex flex-col it h-12 justify-start   md:flex-row md:items-center  md:border-r-purple-700  px-5  pl-5`} onClick={() => {
         router.push(href);
     }}>
-        <div className="pr-2">
+        <div className={`pr-2 md:block ${isCollapsed ? "hidden":"block"}`}>
             {icon(selected)}
         </div>
         <div

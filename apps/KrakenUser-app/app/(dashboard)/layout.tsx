@@ -10,7 +10,7 @@ export default function Layout({
 }): JSX.Element {
     return (
         <div className="flex relative">
-            <div className="border-r  min-h-full border-r-[#A704BF] z-10">
+            <div className="border-r border-r-[#A704BF] min-h-full z-10">
                 <Sidebar/>
             </div>
             

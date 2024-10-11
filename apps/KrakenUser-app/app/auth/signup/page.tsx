@@ -77,8 +77,9 @@ export default function SignUp() {
                 <div className="w-full h-full flex justify-center items-center absolute">
                     <AuthCard title={'Sign-Up with KRAKEN'}>
                         <div className='flex pb-2 gap-8 justify-center'>
-                            {/* <GoogleBtn /><Gitbtn /> */}
-                            <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
+                            {/* <GoogleBtn /> */}
+                            {/* <Gitbtn /> */}
+                             <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
                             <TempGitbtn onClick={() => handleUnavailableSignIn("GitHub")} />
                         </div>
                         <p className="text-gray-500 text-center">or</p>
@@ -139,7 +140,7 @@ export default function SignUp() {
 }
 
 
-export const TempGoogleBtn = ({ onClick }: any) => {
+const TempGoogleBtn =({onClick}:any) =>{
     return (
         <button
             onClick={onClick}
@@ -148,14 +149,6 @@ export const TempGoogleBtn = ({ onClick }: any) => {
         </button>
     )
 }
-
-
-function GoogleSvg() {
-    return (
-        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.706 8.16699C15.706 7.64699 15.6593 7.14699 15.5727 6.66699H8.66602V9.50699H12.6127C12.4393 10.4203 11.9193 11.1937 11.1393 11.7137V13.5603H13.5193C14.906 12.2803 15.706 10.4003 15.706 8.16699Z" fill="#4285F4"></path><path d="M8.66581 15.3337C10.6458 15.3337 12.3058 14.6804 13.5191 13.5604L11.1391 11.7137C10.4858 12.1537 9.65247 12.4204 8.66581 12.4204C6.75914 12.4204 5.13914 11.1337 4.55914 9.40039H2.11914V11.2937C3.32581 13.6871 5.79914 15.3337 8.66581 15.3337Z" fill="#34A853"></path><path d="M4.55967 9.39289C4.41301 8.95289 4.32634 8.48622 4.32634 7.99956C4.32634 7.51289 4.41301 7.04622 4.55967 6.60622V4.71289H2.11967C1.61967 5.69956 1.33301 6.81289 1.33301 7.99956C1.33301 9.18622 1.61967 10.2996 2.11967 11.2862L4.01967 9.80622L4.55967 9.39289Z" fill="#FBBC05"></path><path d="M8.66581 3.58699C9.74581 3.58699 10.7058 3.96033 11.4725 4.68033L13.5725 2.58033C12.2991 1.39366 10.6458 0.666992 8.66581 0.666992C5.79914 0.666992 3.32581 2.31366 2.11914 4.71366L4.55914 6.60699C5.13914 4.87366 6.75914 3.58699 8.66581 3.58699Z" fill="#EA4335"></path></svg>
-    )
-}
-
 
 
 const TempGitbtn = ({ onClick }: any) => {
@@ -167,6 +160,16 @@ const TempGitbtn = ({ onClick }: any) => {
         </button>
     )
 }
+
+function GoogleSvg() {
+    return (
+        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.706 8.16699C15.706 7.64699 15.6593 7.14699 15.5727 6.66699H8.66602V9.50699H12.6127C12.4393 10.4203 11.9193 11.1937 11.1393 11.7137V13.5603H13.5193C14.906 12.2803 15.706 10.4003 15.706 8.16699Z" fill="#4285F4"></path><path d="M8.66581 15.3337C10.6458 15.3337 12.3058 14.6804 13.5191 13.5604L11.1391 11.7137C10.4858 12.1537 9.65247 12.4204 8.66581 12.4204C6.75914 12.4204 5.13914 11.1337 4.55914 9.40039H2.11914V11.2937C3.32581 13.6871 5.79914 15.3337 8.66581 15.3337Z" fill="#34A853"></path><path d="M4.55967 9.39289C4.41301 8.95289 4.32634 8.48622 4.32634 7.99956C4.32634 7.51289 4.41301 7.04622 4.55967 6.60622V4.71289H2.11967C1.61967 5.69956 1.33301 6.81289 1.33301 7.99956C1.33301 9.18622 1.61967 10.2996 2.11967 11.2862L4.01967 9.80622L4.55967 9.39289Z" fill="#FBBC05"></path><path d="M8.66581 3.58699C9.74581 3.58699 10.7058 3.96033 11.4725 4.68033L13.5725 2.58033C12.2991 1.39366 10.6458 0.666992 8.66581 0.666992C5.79914 0.666992 3.32581 2.31366 2.11914 4.71366L4.55914 6.60699C5.13914 4.87366 6.75914 3.58699 8.66581 3.58699Z" fill="#EA4335"></path></svg>
+    )
+}
+
+
+
+
 
 function GitHubSvg() {
     return (

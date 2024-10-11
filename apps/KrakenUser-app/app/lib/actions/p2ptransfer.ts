@@ -50,7 +50,7 @@ export async function p2pTransfer(to: string, amount: number) {
     if(Number(from) === Number(toUser.id)){
         return{ message:`Can't pay to self`};
     }
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: { $queryRaw: any; balance: { findUnique: (arg0: { where: { userId: any; }; }) => any; update: (arg0: { where: { userId: any; } | { userId: any; }; data: { amount: { decrement: number; }; } | { amount: { increment: number; }; }; }) => any; }; p2pTransfer: { create: (arg0: { data: { fromUserId: any; toUserId: any; amount: number; timestamp: Date; }; }) => any; }; }) => {
 
         await tx.$queryRaw`SELECT * FROM  "Balance" WHERE "userId" = ${Number(from)} FOR UPDATE`
         const fromBalance = await tx.balance.findUnique({

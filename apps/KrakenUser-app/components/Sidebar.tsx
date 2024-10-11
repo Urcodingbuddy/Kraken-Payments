@@ -10,11 +10,11 @@ export default function () {
 
     return (
         
-        <div className={`h-[calc(100vh-4rem)] bg-dot-white/[0.15] transition-width duration-300 ease-in-out  ${
-            isCollapsed ? "w-[68px]" : "w-56"
+        <div className={`h-[calc(100vh-4rem)]  transition-width duration-300 ease-in-out  ${
+            isCollapsed ? "w-[0px] lg:w-[72px] lg:bg-dot-white/[0.15]" : "w-48 md:w-56  bg-dot-white/[0.15]"
           }`}
           >
-            <button className="p-5 cursor-pointer" onClick={toggleMenu}>
+            <button className={`p-5 cursor-pointer`} onClick={toggleMenu}>
                 <Menu/>
             </button>
             <div className="gap-16 flex flex-col h-100 justify-center mt-20">
