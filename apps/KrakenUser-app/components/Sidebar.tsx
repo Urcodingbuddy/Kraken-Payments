@@ -11,7 +11,7 @@ export default function () {
     return (
         
         <div className={`h-[calc(100vh-4rem)]  transition-width duration-300 ease-in-out  ${
-            isCollapsed ? "w-[0px] lg:w-[72px] lg:bg-dot-white/[0.15]" : "w-48 md:w-56  bg-dot-white/[0.15]"
+            isCollapsed ? "w-[0px] lg:w-[72px] lg:bg-dot-white/[0.15]" : "w-[72px] md:w-56  bg-dot-white/[0.15]"
           }`}
           >
             <button className={`p-5 cursor-pointer`} onClick={toggleMenu}>

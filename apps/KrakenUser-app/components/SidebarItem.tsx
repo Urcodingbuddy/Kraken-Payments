@@ -14,8 +14,8 @@ export const SidebarItem = ({ href, title, icon, isCollapsed }: { href: string; 
             {icon(selected)}
         </div>
         <div
-        className={`font-bold text-2xl transition-all duration-300 ease-in-out ${
-          isCollapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100 w-auto"
+        className={`font-bold text-2xl hidden md:block transition-all duration-300 ease-in-out ${
+          isCollapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-1 w-auto"
         } ${selected ? "text-[#A704BF]" : "text-slate-500"}`}
       >
         <span>{title}</span>
