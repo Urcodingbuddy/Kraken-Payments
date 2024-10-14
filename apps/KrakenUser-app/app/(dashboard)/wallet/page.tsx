@@ -35,11 +35,11 @@ async function getOnRampTransactions() {
 export default async function() {
   const balance = await getBalance();
   const transactions = await getOnRampTransactions();
-  return <div className="h-100 overflow-y-scroll w-full bg-black flex-col justify-center  dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex">
+  return <div className="h-100 w-full bg-black flex-col justify-center  dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex">
     {/* Radial gradient for the container to give a faded look */}
     <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
     <h1 className="text-[#A704BF] font-extrabold text-4xl mt-5  ml-20   md:ml-20 md:mt-16 z-10 mb-8">Wallet</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-4 p-4 z-10 overflow-y-scroll">
+        <div className="overflow-y-scroll grid grid-cols-1 md:grid-cols-2 justify-center gap-4 p-4 z-10">
             <div className="flex justify-end items-start">
                 <AddMoney />
             </div>
