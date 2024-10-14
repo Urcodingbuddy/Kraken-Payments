@@ -76,60 +76,64 @@ export default function SignUp() {
             <BackgroundLines>
                 <div className="w-full h-full flex justify-center items-center absolute">
                     <AuthCard title={'Sign-Up with KRAKEN'}>
-                        <div className='flex pb-2 gap-8 justify-center'>
-                            {/* <GoogleBtn /> */}
-                            {/* <Gitbtn /> */}
-                             <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
-                            <TempGitbtn onClick={() => handleUnavailableSignIn("GitHub")} />
-                        </div>
-                        <p className="text-gray-500 text-center">or</p>
-                        <AuthInputs placeholder={'username'}
-                            onChange={(value) => setName(value)}
-                            label={'Name'} type={'text'}  />
-
-                        <AuthInputs placeholder={'Email'}
-                            onChange={(value) => setEmail(value)}
-                            label={'Email'} type={'text'}  />
-
-                        <AuthInputs placeholder={'Phone number'}
-                            label={'Phone'}
-                            type={'number'}
-                            onChange={(value) => {
-                                // Handle validation
-                                if (value.length > 10) {
-                                    // Optionally handle overflow case, e.g. show an error
-                                    return;
-                                }
-                                handleNumberChange(value); // handle validation
-                            }}
-                            onInput={(e: React.FormEvent<HTMLInputElement>) => {
-                                const inputValue = e.currentTarget.value.replace(/[^0-9]/g, ''); // Only allows numbers
-                                e.currentTarget.value = inputValue; // Replace non-numeric characters
-                            }}
-                        />
+                        <div>
 
 
-                        <AuthInputs placeholder={'Password'}
-                            onChange={(value) => setPassword(value)}
-                            label={'Password'} type={'password'} />
+                            <div className='w-full flex pb-2 justify-between'>
+                                {/* <GoogleBtn /> */}
+                                {/* <Gitbtn /> */}
+                                <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
+                                <TempGitbtn onClick={() => handleUnavailableSignIn("GitHub")} />
+                            </div>
+                            <p className="text-gray-500 text-center">or</p>
+                            <AuthInputs placeholder={'username'}
+                                onChange={(value) => setName(value)}
+                                label={'Name'} type={'text'} />
 
-                        <AuthInputs placeholder={'Confirm Password'}
-                            onChange={(value) => setConfirmPassword(value)}
-                            label={'Confirm Password'} type={'password'} />
-                        <div className='w-[14.5rem] mt-2 h-10'>
-                            <Button type={"button"} onClick={handleSubmit} fullWidth={true}>
-                                <span className='inline-flex gap-5 '>Sign-In {loading && <Loader />}</span>
-                            </Button>
-                        </div>
-                        <div className="pt-2">
-                            <p className="text-gray-500 text-center">
-                                Already have a Account? {' '}
-                                <Link href="/auth/signin" className="text-[#8905FF] hover:text-[#eee0ff]">
-                                    Sign-In
-                                </Link>
-                            </p>
-                            <div className='w-full mt-2 flex justify-center'>
-                                {error && <p className='h-10 text-wrap' style={{ color: 'red' }}>{error}</p>}
+                            <AuthInputs placeholder={'Email'}
+                                onChange={(value) => setEmail(value)}
+                                label={'Email'} type={'text'} />
+
+                            <AuthInputs placeholder={'Phone number'}
+                                label={'Phone'}
+                                type={'number'}
+                                onChange={(value) => {
+                                    // Handle validation
+                                    if (value.length > 10) {
+                                        // Optionally handle overflow case, e.g. show an error
+                                        return;
+                                    }
+                                    handleNumberChange(value); // handle validation
+                                }}
+                                onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                                    const inputValue = e.currentTarget.value.replace(/[^0-9]/g, ''); // Only allows numbers
+                                    e.currentTarget.value = inputValue; // Replace non-numeric characters
+                                }}
+                            />
+
+
+                            <AuthInputs placeholder={'Password'}
+                                onChange={(value) => setPassword(value)}
+                                label={'Password'} type={'password'} />
+
+                            <AuthInputs placeholder={'Confirm Password'}
+                                onChange={(value) => setConfirmPassword(value)}
+                                label={'Confirm Password'} type={'password'} />
+                            <div className='w-full mt-4 h-10'>
+                                <Button type={"button"} onClick={handleSubmit} fullWidth={true}>
+                                    <span className='inline-flex gap-5 '>Sign-In {loading && <Loader />}</span>
+                                </Button>
+                            </div>
+                            <div className="pt-2">
+                                <p className="text-gray-500 text-center">
+                                    Already have a Account? {' '}
+                                    <Link href="/auth/signin" className="text-[#8905FF] hover:text-[#eee0ff]">
+                                        Sign-In
+                                    </Link>
+                                </p>
+                                <div className='w-full mt-2 flex justify-center'>
+                                    {error && <p className='h-10 w-[14rem] text-center text-wrap' style={{ color: 'red' }}>{error}</p>}
+                                </div>
                             </div>
                         </div>
                     </AuthCard>
@@ -140,7 +144,7 @@ export default function SignUp() {
 }
 
 
-const TempGoogleBtn =({onClick}:any) =>{
+const TempGoogleBtn = ({ onClick }: any) => {
     return (
         <button
             onClick={onClick}

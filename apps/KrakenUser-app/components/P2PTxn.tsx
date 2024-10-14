@@ -1,35 +1,47 @@
 import { Card } from "@repo/ui/card"
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, AwaitedReactNode } from "react";
 
-export const WalletTxn = ({
-    transactions
-}: {
-    transactions: {
-        time: Date,
-        amount: number,
-        status: string,
-        provider: string
-    }[]
-}) => {
-    if (!transactions.length) {
+
+export const P2PTxn = ({
+    p2pTxns,
+    session,
+  }: {
+    p2pTxns: any;
+    session: any;
+  }) => {
+    if (!P2PTxn.length) {
         return <Card title="Wallet Transactions">
             <div className="text-center pb-8 pt-8">
                 No Recent transactions
             </div>
         </Card>
     }
-    return <Card title="Wallet Transactions">
-        <div className="pt-2">
-            {transactions.map(t => <div className="flex justify-between border-b py-2">
+    return <Card title="P2P Transfers">
+            <div className="pt-2">
+            {p2pTxns.map((t: { fromUserId: any; toUser: { name: string; }; fromUser: { name: string; }; timestamp: { toDateString: () => string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }; amount: number; status: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | null | undefined; }) => <div className="flex justify-between border-b py-2">
                 <div>
+
                     <div className="text-sm">
-                        Added
+                    {t.fromUserId == session.user.id
+                        ? t.toUser?.name.charAt(0).toUpperCase() + t.toUser?.name.slice(1).toLowerCase()
+                        : t.fromUser?.name.charAt(0).toUpperCase() + t.fromUser?.name.slice(1).toLowerCase()
+                        }
+
                     </div>
                     <div className="text-slate-500 text-xs">
-                        {t.time.toDateString()}
+                    {t.timestamp.toDateString()}
                     </div>
                 </div>
                 <div className="flex flex-col justify-center">
-                    + Rs {t.amount / 100}
+                <div className={`${
+                        t.fromUserId == session.user.id
+                        ? `text-red-700` : `text-green-600`
+                        }`}>
+                        {t.fromUserId == session.user.id
+                        ? `- Rs ${t.amount/100}`
+                        : `+ Rs ${t.amount/100}`
+                        }
+                    </div>
                     <div className={`text-xs flex justify-end items-center ${t.status === "Failed"
                             ? "text-red-500"
                             : t.status === "Successful"

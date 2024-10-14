@@ -101,16 +101,26 @@ export const authOptions = {
                     }
                     
                     const hashedPassword = await bcrypt.hash(credentials?.password, 10);
-                    const newUser = await db.user.create({
-                        data: {
-                            name: credentials?.name,
-                            email: credentials?.email,
-                            number: credentials?.phone,
-                            password: hashedPassword,
-                            auth_type: "credentials",
-                        },
-                    });
-                    return { id: newUser.id, email: newUser.email, phone: newUser.number };
+                    const user = await db.$transaction(async (tx)=>{
+                        const newUser = await tx.user.create({
+                            data: {
+                                name: credentials?.name,
+                                email: credentials?.email,
+                                number: credentials?.phone,
+                                password: hashedPassword,
+                                auth_type: "credentials",
+                            },
+                        });
+                        const balance = tx.balance.create({
+                            data:{
+                              userId:newUser.id,
+                              amount:0,
+                              locked:0  
+                            }
+                        })
+                        return { id: newUser.id, email: newUser.email, phone: newUser.number,balance:(await balance).amount };
+                    })
+                    return user
                 }
                 throw new Error("Invalid action");
             },

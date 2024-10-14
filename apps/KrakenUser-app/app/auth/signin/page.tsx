@@ -48,7 +48,8 @@ export default function SignIn() {
             <BackgroundLines>
                 <div className="w-full h-full flex justify-center items-center absolute">
                     <AuthCard title={'Sign-In to KRAKEN'}>
-                        <div className='flex pb-2 gap-8 justify-center'>
+                        <div>
+                        <div className='w-full h-10 flex pb-2  justify-between'>
                             {/* <GoogleBtn />
                             <Gitbtn /> */}
                             <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
@@ -66,7 +67,7 @@ export default function SignIn() {
                             label={'Password'} 
                             type={'password'}
                             />
-                        <div className='w-[14.5rem] mt-2 h-10'>
+                        <div className='w-full mt-4 h-10'>
                         <Button type={"button"} onClick={handleSubmit} fullWidth={true}>
                             <span className='inline-flex gap-5 '>Sign-In {loading && <Loader/>}</span>
                         </Button>
@@ -79,10 +80,10 @@ export default function SignIn() {
                                 </Link>
                             </p>
                             <div className='w-[14.5rem] mt-2 flex justify-center'>
-                                {error && <p style={{ color: 'red' }}>{error}</p>}
+                            {error && <p className='h-10 w-[14rem] text-center text-wrap' style={{ color: 'red' }}>{error}</p>}
                             </div>
                         </div>
-
+                        </div>
                     </AuthCard>
                 </div>
             </BackgroundLines>

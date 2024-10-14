@@ -9,19 +9,16 @@ export async function p2pTransfer(to: string, amount: number) {
             message: "Fill Amount and receiver's Phone Number"
         }
     }
-
     if (!amount) {
         return {
             message: "Amount cannot be empty"
         }
     }
-
     if (!to) {
         return {
             message: "Phone number cannot be empty"
         }
     }
-
     // Check if the phone number has less than 10 digits
     if (to.length < 10) {
         return {
