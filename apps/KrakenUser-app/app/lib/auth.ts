@@ -47,16 +47,16 @@ export const authOptions = {
                     }
 
                     // Lookup user in the database by email/phone
-                    const existingUser:any = await db.user.findFirst({
+                    const existingUser = await db.user.findFirst({
                         where: {
-                            OR: [{ email: credentials?.email }, { number: credentials?.phone }],
+                            OR: [{ email: credentials?.email }, { number: credentials?.email }],
                         },
                     });
-
                     if (!existingUser) {
                         throw new Error("No user found with the provided credentials");
                     }
-
+                    
+                    console.log(credentials.email)
                     // Validate password
                     const passwordValid = await bcrypt.compare(credentials.password, existingUser.password);
                     if (!passwordValid) {
