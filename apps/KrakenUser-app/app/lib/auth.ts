@@ -136,7 +136,7 @@ export const authOptions = {
             session.user.id = token.sub
             return session
         },
-        async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
+        async redirect({  baseUrl }: {  baseUrl: string }) {
             // Redirect to /dashboard after a successful login
             return baseUrl + '/home';
         }
