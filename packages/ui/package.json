@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
+    
     "./button": "./src/button.tsx",
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
@@ -14,8 +15,8 @@
     "./GitBtn":"./src/GitBtn.tsx",
     "./GoogleBtn":"./src/GoogleBtn.tsx",
     "./loader":"./src/loader.tsx",
-    "./BigLoader":"./src/BigLoader.tsx"
-    
+    "./BigLoader":"./src/BigLoader.tsx",
+    "./Avatar.tsx":"./src/Avatar.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

@@ -56,7 +56,7 @@ export const authOptions = {
                         throw new Error("No user found with the provided credentials");
                     }
                     
-                    console.log(credentials.email)
+                    
                     // Validate password
                     const passwordValid = await bcrypt.compare(credentials.password, existingUser.password);
                     if (!passwordValid) {

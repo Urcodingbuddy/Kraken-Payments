@@ -1,11 +1,9 @@
 
 import { GlobeLoader } from "../../../components/GlobeLoader";
-import { authOptions } from "../../lib/auth";
-import { getServerSession } from "next-auth"
 
 
 export default function () {
-    const session = getServerSession(authOptions);
+    
     return (
         <div className="h-full w-full bg-black   dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex flex-col overflow-y-hidden">
             {/* Radial gradient for the container to give a faded look */}

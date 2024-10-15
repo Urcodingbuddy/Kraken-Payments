@@ -2,6 +2,7 @@
 import { useState } from "react"; // Import useState
 import { Button } from "./button";
 import { Loader } from "./loader";
+import { Avatar } from "./Avatar";
 
 interface AppbarProps {
   user?: {
@@ -41,11 +42,12 @@ export const Appbar = ({
   };
 
   return (
-    <div className="flex h-16 justify-between items-center border-b px-4 bg-black border-[#A704BF]">
+    <div className="flex h-16 justify-between items-center border-b pl-4 bg-black border-[#A704BF]">
       <div className="w-36">
         <img className="larger" src="/kraken-4.svg" alt="kraken logo vector" />
       </div>
-      <div className="flex flex-col justify-center pt-2">
+      <div className="flex justify-center items-center h-full">
+        <div>
         {showButton && (
           <Button onClick={handleButtonClick}>
             <span className="inline-flex gap-5">
@@ -54,6 +56,10 @@ export const Appbar = ({
             </span>
           </Button>
         )}
+        </div>
+        <div className="w-24 h-full flex justify-center items-center border-l-[#A704BF] border-l hover:bg-[#fff] cursor-pointer">
+            <Avatar/>
+        </div>
       </div>
     </div>
   );
