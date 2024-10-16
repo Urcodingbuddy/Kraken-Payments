@@ -86,10 +86,9 @@ export default function SignUp() {
                                 <TempGitbtn onClick={() => handleUnavailableSignIn("GitHub")} />
                             </div>
                             <p className="text-gray-500 text-center">or</p>
-                            <AuthInputs placeholder={'username'}
+                            <AuthInputs placeholder={'Ram Prasad'}
                                 onChange={(value) => setName(value)}
-                                label={'Name'} type={'text'} />
-
+                                label={'Full name'} type={'text'} />
                             <AuthInputs placeholder={'Email'}
                                 onChange={(value) => setEmail(value)}
                                 label={'Email'} type={'text'} />
@@ -125,14 +124,14 @@ export default function SignUp() {
                                 </Button>
                             </div>
                             <div className="pt-2">
-                                <p className="text-gray-500 text-center">
+                                <p className="text-gray-500 text-center pt-2">
                                     Already have a Account? {' '}
                                     <Link href="/auth/signin" className="text-[#8905FF] hover:text-[#eee0ff]">
                                         Sign-In
                                     </Link>
                                 </p>
-                                <div className='w-full mt-2 flex justify-center'>
-                                    {error && <p className='h-10 w-[14rem] text-center text-wrap' style={{ color: 'red' }}>{error}</p>}
+                                <div className='w-full py-2 flex justify-center'>
+                                    {error && <p className=' w-[14rem] text-center text-wrap' style={{ color: 'red' }}>{error}</p>}
                                 </div>
                             </div>
                         </div>

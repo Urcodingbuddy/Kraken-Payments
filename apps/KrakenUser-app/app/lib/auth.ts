@@ -30,6 +30,18 @@ export const authOptions = {
                 const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  // Email validation regex
                 const phonePattern = /^\d{10}$/;
 
+                function capitalizeName(name: string): string {
+                    return name
+                        .split(" ") // Split the name by spaces to handle multiple words
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize the first letter of each word
+                        .join(" "); // Join the words back together
+                }
+
+                function isValidFullName(name: string): boolean {
+                    const nameParts = name.trim().split(" "); // Split by space
+                    return nameParts.length >= 2 && nameParts.every(part => part.length > 0); // Ensure there are at least two parts, and both are non-empty
+                }
+
                 if (action === 'signIn') {
                     if (!credentials?.email || !credentials?.password) {
                         throw new Error("Email/Phone and password are required for sign-in");
@@ -62,7 +74,7 @@ export const authOptions = {
                     if (!passwordValid) {
                         throw new Error("Invalid password");
                     }
-                    return { id: existingUser.id, email: existingUser.email, phone: existingUser.number };
+                    return { id: existingUser.id, email: existingUser.email, phone: existingUser.number, name: existingUser.name };
                 }
 
                 // If action is sign-up, require name, email, phone, and password
@@ -99,12 +111,18 @@ export const authOptions = {
                             throw new Error("Phone number already exists");
                         }
                     }
-                    
+
+                    if (!isValidFullName(credentials?.name)) {
+                        throw new Error("Enter full name (e.g., Ramu Kaka)");
+                    }
+
+                    const capitalizedName = capitalizeName(credentials?.name);
+
                     const hashedPassword = await bcrypt.hash(credentials?.password, 10);
                     const user = await db.$transaction(async (tx)=>{
                         const newUser = await tx.user.create({
                             data: {
-                                name: credentials?.name,
+                                name: capitalizedName,
                                 email: credentials?.email,
                                 number: credentials?.phone,
                                 password: hashedPassword,
@@ -118,7 +136,7 @@ export const authOptions = {
                               locked:0  
                             }
                         })
-                        return { id: newUser.id, email: newUser.email, phone: newUser.number,balance:(await balance).amount };
+                        return {name:newUser.name, id: newUser.id, email: newUser.email, phone: newUser.number,balance:(await balance).amount };
                     })
                     return user
                 }
@@ -132,8 +150,20 @@ export const authOptions = {
     },
     secret: process.env.NEXTAUTH_SECRET || "secret",
     callbacks: {
+
+        async jwt({token, user}:any){
+            if(user){
+                token.id = user.id;
+                token.email = user.email;
+                token.name = user.name;
+            }
+            return token
+        },
+
         async session({ token, session }: any) {
-            session.user.id = token.sub
+            session.user.id = token.id;
+            session.user.email = token.email;
+            session.user.name = token.name;
             return session
         },
         async redirect({  baseUrl }: {  baseUrl: string }) {

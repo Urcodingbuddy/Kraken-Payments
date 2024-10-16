@@ -16,7 +16,8 @@
     "./GoogleBtn":"./src/GoogleBtn.tsx",
     "./loader":"./src/loader.tsx",
     "./BigLoader":"./src/BigLoader.tsx",
-    "./Avatar.tsx":"./src/Avatar.tsx"
+    "./Avatar.tsx":"./src/Avatar.tsx",
+    "./InfoDrop.tsx":"./src/InfoDrop.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
