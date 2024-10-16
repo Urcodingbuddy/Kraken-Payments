@@ -8,43 +8,43 @@ const session = await getServerSession(authOptions);
 async function getP2Ptxns() {
   const txns = await prisma.user.findUnique({
     where: {
-       id: session?.user?.id
+      id: session?.user?.id
     },
-    include:{
-      sentTransfers:{
-        include:{
-          toUser:{
-            select:{
-              number:true,
-              name:true
+    include: {
+      sentTransfers: {
+        include: {
+          toUser: {
+            select: {
+              number: true,
+              name: true
             },
           },
         },
       },
-      receivedTransfers:{
-        include:{
-          fromUser:{
-            select:{
-              number:true,
-              name:true
+      receivedTransfers: {
+        include: {
+          fromUser: {
+            select: {
+              number: true,
+              name: true
             },
           },
         },
       },
     },
-});
+  });
 
-const combinedTransactions = [
-  ...(txns?.sentTransfers || []),
-  ...(txns?.receivedTransfers || []),
-];
+  const combinedTransactions = [
+    ...(txns?.sentTransfers || []),
+    ...(txns?.receivedTransfers || []),
+  ];
 
-combinedTransactions.sort(
-  (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-);
+  combinedTransactions.sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  );
 
-return combinedTransactions;
-} 
+  return combinedTransactions;
+}
 
 export default async function () {
 
@@ -56,10 +56,10 @@ export default async function () {
     <h1 className="text-[#A704BF] text-4xl font-extrabold  mt-5  ml-20   md:ml-20 md:mt-16 z-10 mb-8">Recent Transactions</h1>
     <div className="overflow-y-scroll h-full max-h grid grid-cols-1 md:grid-cols-2 justify-center gap-4 p-4 z-10">
       <div className="flex justify-center md:justify-end items-start">
-      <WalletTxn transactions={transactions} />
+        <WalletTxn transactions={transactions} />
       </div>
-      <div className="text-red-700 flex justify-center md:justify-start">
-      < P2PTxn session={session} p2pTxns={p2pTxns} />
+      <div className="text-red-700 flex justify-center items-start md:justify-start">
+        < P2PTxn session={session} p2pTxns={p2pTxns} />
       </div>
     </div>
   </div>

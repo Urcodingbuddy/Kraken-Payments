@@ -30,12 +30,11 @@ export const SendMoneyCard = () => {
                     setLoading(true)
                     const res = await p2pTransfer(number, Number(amount) * 100)
                     if (res?.message) {
-
                     setLoading(false)
-                        setError(res.message)
+                    setError(res.message)
                     }
                 }}>
-                    <span className='inline-flex gap-5 '>Add Money  {loading && <Loader />}</span>
+                    <span className='inline-flex gap-5 '>Send Money  {loading && <Loader />}</span>
                 </Button>
             </div>
             <div className='w-full mt-2 flex justify-center'>

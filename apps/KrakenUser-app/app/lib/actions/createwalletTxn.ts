@@ -4,9 +4,7 @@ import { authOptions } from "../auth";
 import prisma from "@repo/db/client";
 
 export async function createWalletTxn(amount: number, provider: string) {
-    console.log("Inside walletTxn")
-    const session = await getServerSession(authOptions);
-    console.log("Session:", session); 
+    const session = await getServerSession(authOptions); 
     const token = Math.random().toString();
     const userId = session?.user?.id;
     if (!userId) {
@@ -15,6 +13,15 @@ export async function createWalletTxn(amount: number, provider: string) {
             massage: "User not logged in"
         }
     }
+
+    if (!amount) {
+        return {
+            message: "Amount cannot be empty"
+        }
+    }
+
+    
+
     try {
         await prisma.walletTxn.create({
             data: {
