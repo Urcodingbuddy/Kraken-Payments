@@ -5,8 +5,8 @@ import { AuthCard } from '../../../components/AuthCard'
 import { AuthInputs } from '@repo/ui/AuthInputs'
 import Link from 'next/link'
 import { BackgroundLines } from '../../../@/components/ui/background-lines'
-import { GoogleBtn } from '@repo/ui/GoogleBtn'
-import { Gitbtn } from '@repo/ui/GitBtn'
+// import { GoogleBtn } from '@repo/ui/GoogleBtn'
+// import { Gitbtn } from '@repo/ui/GitBtn'
 import { Button } from '@repo/ui/button'
 import { Loader } from '@repo/ui/loader'
 
@@ -58,7 +58,7 @@ export default function SignUp() {
         }
     }
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
+    (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
             handleSubmit();
         }

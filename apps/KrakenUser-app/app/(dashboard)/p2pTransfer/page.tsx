@@ -1,6 +1,4 @@
-
 import { SendMoneyCard } from "../../../components/SendMoneyCard";
-
 
 export default function () {
     return <div className="h-[calc(100vh-4rem)] overflow-y-scroll w-full bg-black flex-col  dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex">
@@ -11,6 +9,5 @@ export default function () {
             <SendMoneyCard />
         </div>
     </div>
-
 
 }

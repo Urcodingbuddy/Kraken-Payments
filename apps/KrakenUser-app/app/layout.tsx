@@ -6,15 +6,6 @@ import { Inter } from "next/font/google";
 import { Providers } from "../provider";
 
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-});
-
 export const metadata: Metadata = {
   title: "Wallet",
   description: "Simple wallet app",

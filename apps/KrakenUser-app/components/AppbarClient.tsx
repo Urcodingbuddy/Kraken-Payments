@@ -2,11 +2,9 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Appbar } from "@repo/ui/appbar";
 import { usePathname } from "next/navigation";
-interface AppbarClientProps {
-  showButton?: boolean;
-}
 
-export function AppbarClient({ showButton = false }: AppbarClientProps) {
+
+export function AppbarClient() {
   const session = useSession();
   const pathname = usePathname();
 

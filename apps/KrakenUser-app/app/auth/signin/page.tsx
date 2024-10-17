@@ -6,8 +6,8 @@ import { AuthInputs } from '@repo/ui/AuthInputs'
 import Link from 'next/link'
 import { BackgroundLines } from '../../../@/components/ui/background-lines'
 import { Button } from '@repo/ui/button'
-import { GoogleBtn } from '@repo/ui/GoogleBtn'
-import { Gitbtn } from '@repo/ui/GitBtn'
+// import { GoogleBtn } from '@repo/ui/GoogleBtn'
+// import { Gitbtn } from '@repo/ui/GitBtn'
 import { Loader } from '@repo/ui/loader'
 
 

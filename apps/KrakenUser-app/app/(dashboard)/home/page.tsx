@@ -1,7 +1,6 @@
 
 import { GlobeLoader } from "../../../components/GlobeLoader";
 
-
 export default function () {
     
     return (

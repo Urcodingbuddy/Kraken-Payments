@@ -1,54 +1,14 @@
 import { getServerSession } from "next-auth";
 import { P2PTxn } from "../../../components/P2PTxn";
 import { WalletTxn } from "../../../components/WalletTxn";
-import { getOnRampTransactions } from "../wallet/page";
 import { authOptions } from "../../lib/auth";
-import prisma from "@repo/db/client";
-const session = await getServerSession(authOptions);
-async function getP2Ptxns() {
-  const txns = await prisma.user.findUnique({
-    where: {
-      id: session?.user?.id
-    },
-    include: {
-      sentTransfers: {
-        include: {
-          toUser: {
-            select: {
-              number: true,
-              name: true
-            },
-          },
-        },
-      },
-      receivedTransfers: {
-        include: {
-          fromUser: {
-            select: {
-              number: true,
-              name: true
-            },
-          },
-        },
-      },
-    },
-  });
+import { getP2Ptxns } from "../../lib/actions/getP2Ptxns";
+import { getWalletTxns } from "../../lib/actions/getWalletTxns";
 
-  const combinedTransactions = [
-    ...(txns?.sentTransfers || []),
-    ...(txns?.receivedTransfers || []),
-  ];
-
-  combinedTransactions.sort(
-    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-  );
-
-  return combinedTransactions;
-}
 
 export default async function () {
-
-  const transactions = await getOnRampTransactions();
+  const session = await getServerSession(authOptions);
+  const transactions = await getWalletTxns();
   const p2pTxns = await getP2Ptxns();
   return <div className="h-[calc(100vh-4rem)] flex-col w-full bg-black   dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex">
     {/* Radial gradient for the container to give a faded look */}

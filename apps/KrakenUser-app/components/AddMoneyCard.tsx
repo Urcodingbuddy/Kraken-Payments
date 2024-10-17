@@ -59,7 +59,7 @@ export const AddMoney = () => {
                         setLoading(false)
                         setError(res.message)
                     }
-                    // window.location.href = redirectUrl || "";
+                    window.location.href = redirectUrl || "";
                 }}>
                      <span className='inline-flex gap-5 '>Add Money   {loading && <Loader />}</span>
                 </Button>
