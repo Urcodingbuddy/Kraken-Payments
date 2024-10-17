@@ -11,6 +11,9 @@
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
+  "scripts": {
+    "postinstall": "prisma generate" 
+  },
   "devDependencies": {
     "@prisma/client": "^5.20.0",
     "@types/bcrypt": "^5.0.2"
