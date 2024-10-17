@@ -119,7 +119,7 @@ export const authOptions = {
                     const capitalizedName = capitalizeName(credentials?.name);
 
                     const hashedPassword = await bcrypt.hash(credentials?.password, 10);
-                    const user = await db.$transaction(async (tx)=>{
+                    const user = await db.$transaction(async (tx:any)=>{
                         const newUser = await tx.user.create({
                             data: {
                                 name: capitalizedName,
