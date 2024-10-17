@@ -1,4 +1,3 @@
-
 interface AuthInputsProps {
     placeholder: string;
     onChange: (value: string) => void;
