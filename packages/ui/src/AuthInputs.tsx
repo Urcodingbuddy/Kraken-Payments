@@ -6,6 +6,7 @@ interface AuthInputsProps {
     onInput?: (e: React.FormEvent<HTMLInputElement>) => void;
   }
 
+  
   export function AuthInputs({
     placeholder,
     onChange,
