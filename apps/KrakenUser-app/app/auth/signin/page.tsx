@@ -5,8 +5,8 @@ import { AuthInputs } from '@repo/ui/AuthInputs'
 import Link from 'next/link'
 import { BackgroundLines } from '../../../@/components/ui/background-lines'
 import { Button } from '@repo/ui/button'
-// import { GoogleBtn } from '@repo/ui/GoogleBtn'
-// import { Gitbtn } from '@repo/ui/GitBtn'
+import { GoogleBtn } from '@repo/ui/GoogleBtn'
+import { Gitbtn } from '@repo/ui/GitBtn'
 import { Loader } from '@repo/ui/loader'
 import { useSignIn } from '../../lib/utils/handleSignIn'
 
@@ -22,9 +22,9 @@ export default function SignIn() {
         handleSignIn(email, password, setError, setLoading);
     };
 
-    const handleUnavailableSignIn = (provider: any) => {
-        setError(`${provider} Sign-In is Currently Unavailable!`);
-    };
+    // const handleUnavailableSignIn = (provider: any) => {
+    //     setError(`${provider} Sign-In is Currently Unavailable!`);
+    // };
 
     return (
         <div className="h-[calc(100vh-4rem)] w-full bg-black   dark:bg-grid-white/[0.2] bg-grid-white/[0.2] relative flex flex-col">
@@ -35,10 +35,10 @@ export default function SignIn() {
                     <AuthCard title={'Sign-In to KRAKEN'}>
                         <div>
                         <div className='w-full h-10 flex pb-2  justify-between'>
-                            {/* <GoogleBtn />
-                            <Gitbtn /> */}
-                            <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
-                            <TempGitbtn onClick={() => handleUnavailableSignIn("GitHub")} />
+                            <GoogleBtn />
+                            <Gitbtn />
+                            {/* <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
+                            <TempGitbtn onClick={() => handleUnavailableSignIn("GitHub")} /> */}
                         </div>
                         <p className="text-gray-500 text-center">or</p>
                         <AuthInputs placeholder={'Email or Phone number'}
