@@ -5,8 +5,8 @@ import { AuthCard } from '../../../components/AuthCard'
 import { AuthInputs } from '@repo/ui/AuthInputs'
 import Link from 'next/link'
 import { BackgroundLines } from '../../../@/components/ui/background-lines'
-// import { GoogleBtn } from '@repo/ui/GoogleBtn'
-// import { Gitbtn } from '@repo/ui/GitBtn'
+import { GoogleBtn } from '@repo/ui/GoogleBtn'
+import { Gitbtn } from '@repo/ui/GitBtn'
 import { Button } from '@repo/ui/button'
 import { Loader } from '@repo/ui/loader'
 import { useSignUp } from '../../lib/utils/hadleSignup'
@@ -47,9 +47,9 @@ export default function SignUp() {
 
 
 
-    const handleUnavailableSignIn = (provider: any) => {
-        setError(`${provider} Sign-In is Currently Unavailable!`);
-    };
+    // const handleUnavailableSignIn = (provider: any) => {
+    //     setError(`${provider} Sign-In is Currently Unavailable!`);
+    // };
 
 
     return (
@@ -63,10 +63,10 @@ export default function SignUp() {
 
 
                             <div className='w-full flex pb-2 justify-between'>
-                                {/* <GoogleBtn /> */}
-                                {/* <Gitbtn /> */}
-                                <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
-                                <TempGitbtn onClick={() => handleUnavailableSignIn("GitHub")} />
+                                <GoogleBtn />
+                                <Gitbtn />
+                                {/* <TempGoogleBtn onClick={() => handleUnavailableSignIn("Google")} />
+                                <TempGitbtn onClick={() => handleUnavailableSignIn("GitHub")} /> */}
                             </div>
                             <p className="text-gray-500 text-center">or</p>
                             <AuthInputs placeholder={'Ram Prasad'}
