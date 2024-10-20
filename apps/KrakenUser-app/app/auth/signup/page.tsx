@@ -9,6 +9,7 @@ import { BackgroundLines } from '../../../@/components/ui/background-lines'
 // import { Gitbtn } from '@repo/ui/GitBtn'
 import { Button } from '@repo/ui/button'
 import { Loader } from '@repo/ui/loader'
+import { useSignUp } from '../../lib/utils/hadleSignup'
 
 
 export default function SignUp() {
@@ -19,6 +20,7 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
+    const { handleSignUp } = useSignUp();
 
 
     const handleNumberChange = (value: string) => {
@@ -31,38 +33,19 @@ export default function SignUp() {
         }
     };
 
-    const handleSubmit = async () => {
-        setError("");
-        setLoading(true)
-
-        const result = await signIn("credentials", {
-            email,
-            name,
-            phone,
-            password,
-            confirmPassword,
-            redirect: false,
-            action: "signUp",
-            callbackUrl: "/home"
-        })
+    const handleSignupClick = () => {
+        handleSignUp(
+          email, 
+          name, 
+          phone, 
+          password, 
+          confirmPassword, 
+          setError, 
+          setLoading
+        );
+      };
 
 
-        if (result?.error) {
-            setError(result.error)
-            setLoading(false)
-        } else if (result?.url) {
-            setLoading(true)
-            window.location.href = result.url;
-        } else {
-            console.error("Unexpected result:", result);
-        }
-    }
-
-    (e: React.KeyboardEvent) => {
-        if (e.key === "Enter") {
-            handleSubmit();
-        }
-    };
 
     const handleUnavailableSignIn = (provider: any) => {
         setError(`${provider} Sign-In is Currently Unavailable!`);
@@ -119,7 +102,7 @@ export default function SignUp() {
                                 onChange={(value) => setConfirmPassword(value)}
                                 label={'Confirm Password'} type={'password'} />
                             <div className='w-full mt-4 h-10'>
-                                <Button type={"button"} onClick={handleSubmit} fullWidth={true}>
+                                <Button type={"button"} onClick={handleSignupClick} fullWidth={true}>
                                     <span className='inline-flex gap-5 '>Sign-In {loading && <Loader />}</span>
                                 </Button>
                             </div>

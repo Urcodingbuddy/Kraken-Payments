@@ -1,5 +1,4 @@
 "use client"
-import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 import { AuthCard } from '../../../components/AuthCard'
 import { AuthInputs } from '@repo/ui/AuthInputs'
@@ -9,7 +8,7 @@ import { Button } from '@repo/ui/button'
 // import { GoogleBtn } from '@repo/ui/GoogleBtn'
 // import { Gitbtn } from '@repo/ui/GitBtn'
 import { Loader } from '@repo/ui/loader'
-
+import { useSignIn } from '../../lib/utils/handleSignIn'
 
 
 export default function SignIn() {
@@ -17,25 +16,11 @@ export default function SignIn() {
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
-    const handleSubmit = async () => {
-        setLoading(true)
-        const result = await signIn("credentials", {
-            email,
-            password,
-            redirect: false,
-            action: "signIn",
-            callbackUrl: "/home"
-        })
-        if (result?.error) {
-            setError(result.error)
-            setLoading(false)
-            // handle error by setting it in the UI or showing an alert
-        } else if (result?.url) {
-            window.location.href = result.url;
-        } else {
-            console.error("Unexpected result:", result);
-        }
-    }
+    const { handleSignIn } = useSignIn();
+    
+    const handleSubmit = () => {
+        handleSignIn(email, password, setError, setLoading);
+    };
 
     const handleUnavailableSignIn = (provider: any) => {
         setError(`${provider} Sign-In is Currently Unavailable!`);

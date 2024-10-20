@@ -3,17 +3,19 @@ import { Avatar } from "./Avatar";
 import { Loader } from "./loader";
 import { Button } from "./button";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 export function InfoDrop() {
-    const { data: session, status } = useSession();
+    const router = useRouter();
+    const { data: session } = useSession();
     const [loading, setLoading] = useState(false);
     const user = session?.user;
 
     const handleButtonClick = async () => {
         setLoading(true);
         await signOut()
-        window.location.href = "/api/auth/signin";
+        router.push("/api/auth/signin");
     }
     return (
         <div

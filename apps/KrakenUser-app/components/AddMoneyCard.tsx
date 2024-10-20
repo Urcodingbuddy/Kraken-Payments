@@ -6,6 +6,7 @@ import { useState } from "react";
 import { TextInput } from "@repo/ui/textinput";
 import { createWalletTxn } from "../app/lib/actions/createwalletTxn";
 import { Loader } from "@repo/ui/loader";
+import { handleAddMoney } from "../app/lib/utils/handleAddMoney";
 
 const SUPPORTED_BANKS = [{
     name: "HDFC Bank",
@@ -52,21 +53,15 @@ export const AddMoney = () => {
                 value: x.name
             }))} />
             <div className="flex justify-center pt-4">
-                <Button onClick={async () => {
-                    setLoading(true)
-                    const res = await createWalletTxn(amount * 100, provider)
-                    if (res?.message) {
-                        setLoading(false)
-                        setError(res.message)
-                    }
-                    window.location.href = redirectUrl || "";
-                }}>
-                     <span className='inline-flex gap-5 '>Add Money   {loading && <Loader />}</span>
+                <Button
+                    onClick={() =>
+                        handleAddMoney(amount, provider, setLoading, setError)}>
+                    <span className='inline-flex gap-5 '>Add Money {loading && <Loader />}</span>
                 </Button>
             </div>
-                <div className='w-full mt-2 flex justify-center'>
-                    {error && <p className='h-4 text-wrap' style={{ color: 'red' }}>{error}</p>}
-                </div>
+            <div className='w-full mt-2 flex justify-center'>
+                {error && <p className='h-4 text-wrap' style={{ color: 'red' }}>{error}</p>}
+            </div>
         </div>
     </Card>
 }
