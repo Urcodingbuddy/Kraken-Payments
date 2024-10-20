@@ -17,7 +17,7 @@ export const P2PTxn = ({
         </Card>
     }
     return <Card title="P2P Transfers">
-            <div className="pt-2">
+            <div className="pt-2 max-h-[350px] overflow-y-scroll">
             {p2pTxns.map((t: { fromUserId: any; toUser: { name: string; }; fromUser: { name: string; }; timestamp: { toDateString: () => string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }; amount: number; status: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | null | undefined; }) => <div className="flex justify-between border-b py-2">
                 <div>
 
