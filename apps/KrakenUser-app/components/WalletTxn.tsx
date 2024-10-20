@@ -18,7 +18,7 @@ export const WalletTxn = ({
         </Card>
     }
     return <Card title="Wallet Transactions">
-        <div className="pt-2">
+        <div className="pt-2 max-h-[350px]  overflow-y-scroll">
             {transactions.map(t => <div className="flex justify-between border-b py-2">
                 <div>
                     <div className="text-sm">

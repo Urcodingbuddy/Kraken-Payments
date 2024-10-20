@@ -5,7 +5,6 @@ import { authOptions } from "../../lib/auth";
 import { getP2Ptxns } from "../../lib/actions/getP2Ptxns";
 import { getWalletTxns } from "../../lib/actions/getWalletTxns";
 
-
 export default async function () {
   const session = await getServerSession(authOptions);
   const transactions = await getWalletTxns();
